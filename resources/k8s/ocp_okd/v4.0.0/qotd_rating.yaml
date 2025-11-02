@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: qotd-rating
-  namespace: {{ APP_NAMESPACE }}
+  namespace: amashargah-dev
   labels:
     app: qotd
     tier: api
@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: qotd-rating
-          image: registry.gitlab.com/quote-of-the-day/qotd-ratings-service/v4.0.0:latest
+          image: registry.gitlab.com/quote-of-the-day/qotd-ratings-service:v5.1.0
           imagePullPolicy: Always
           ports:
             - name: http
@@ -29,9 +29,9 @@ spec:
             - name: LOG_LEVEL
               value: "INFO"
             - name: ENABLE_INSTANA
-              value: "{{ .Values.enableInstana }}"
+              value: "true"
             - name: ANOMALY_GENERATOR_URL
-              value: "http://qotd-usecase-{{LOAD_NAMESPACE }}.{{APP_HOST}}/services/ratings"
+              value: "http://qotd-usecase-load1.https://api.itz-c7ol94.infra01-lb.wdc07.techzone.ibm.com:6443/services/ratings"
           livenessProbe:
             httpGet:
               path: /health
@@ -62,7 +62,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: qotd-rating
-  namespace: {{ APP_NAMESPACE }}
+  namespace: amashargah-dev
   labels:
     app: qotd
     tier: api
@@ -80,7 +80,7 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: qotd-rating
-  namespace: {{ APP_NAMESPACE }}
+  namespace: amashargah-dev
   labels:
     app: qotd
     tier: web
