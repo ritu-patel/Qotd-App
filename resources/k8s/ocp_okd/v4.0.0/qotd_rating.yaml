@@ -19,7 +19,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: qotd-rating
-          image: quay.io/amashargahitops/amashargahitops:1762260545-cve202422025
+          image: quay.io/amashargah/amashargahitops:1762278727-cve20222068
           imagePullPolicy: Always
           ports:
             - name: http
